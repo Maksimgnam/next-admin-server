@@ -111,6 +111,21 @@ app.get("/api/gallery", async (req, res) => {
     }
 });
 
+
+
+app.get("/api/rules", async (req, res) => {
+    const snapshot = await db.collection("rules").get();
+    const data = [];
+
+    snapshot.forEach(doc => {
+        data.push({ id: doc.id, ...doc.data() });
+    });
+
+
+    res.status(200).json(data);
+    console.log(data)
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
